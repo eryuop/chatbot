@@ -35,18 +35,12 @@ SELF = client.loop.run_until_complete(client.get_me())
 
 @client.on(NewMessage(func= lambda x: x.text or x.sticker))
 async def message_handler(event : Message):
-    if not event.is_private:
-        reply = None
-        if event.is_reply:
-            reply = await event.get_reply_message()
-        if not (event.mentioned or (reply and reply.sender_id == SELF.id)):
-            return
     chat = event.chat_id
     if event.text.lower() == "/start":
         msg = choice(HI_STRINGS)
 
         # Refresh Conversation on /start
-        if CONVERSATION_HANDLER.get(chat):
+        if event.is_group CONVERSATION_HANDLER.get(chat):
             del CONVERSATION_HANDLER[chat]
     elif event.sticker and event.file.emoji:
         msg = event.file.emoji
