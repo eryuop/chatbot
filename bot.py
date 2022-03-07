@@ -40,7 +40,7 @@ async def message_handler(event : Message):
         msg = choice(HI_STRINGS)
 
         # Refresh Conversation on /start
-        if event.is_group CONVERSATION_HANDLER.get(chat):
+        if CONVERSATION_HANDLER.get(chat):
             del CONVERSATION_HANDLER[chat]
     elif event.sticker and event.file.emoji:
         msg = event.file.emoji
